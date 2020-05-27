@@ -6,12 +6,14 @@ Udagram is a simple cloud application developed alongside the Udacity Cloud Engi
 
 ### Setup Node Environment
 
-#### For build the project run the build_script.sh, this will create docker images for
+#### Build the project
+For build the project run the build_script.sh, this will create docker images for
 1. reverse-proxy
 2. udacity-c2-frontend
 3. udacity-c2-feed
 4. udacity-c2-user
-and push image to docker hub
+
+and push images to docker hub
 
 #### For running the project on your local machinge node. Open a new terminal within the project directory and run:
 
