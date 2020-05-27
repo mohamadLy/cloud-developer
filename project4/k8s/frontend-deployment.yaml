@@ -11,9 +11,10 @@ spec:
     metadata:
       labels:
         app: frontend 
+        version: frontend-v3
     spec:
       containers:
-      - image: mamadly/udacity-cloud-dev-frontend:frontend-v1
+      - image: mamadly/udacity-cloud-dev-frontend:frontend-v3
         name: frontend
         imagePullPolicy: Always
         resources:
@@ -26,3 +27,4 @@ spec:
         ports:
         - containerPort: 8080
       restartPolicy: Always
+     
