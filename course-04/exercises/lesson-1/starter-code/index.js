@@ -28,6 +28,7 @@ exports.handler = async (event) => {
     endTime = timeInMs();
   }
   //await axios.get(url)
+  const latency = endTime - startTime
 
   // Example of how to write a single data point
    await cloudwatch.putMetricData({
@@ -41,7 +42,7 @@ exports.handler = async (event) => {
            }
          ],
          Unit: 'Milliseconds', // 'Count' or 'Milliseconds'
-         Value: endTime - startTime // Total value
+         Value: latency // Total value
        }
      ],
      Namespace: 'Udacity/Serveless'
@@ -58,7 +59,7 @@ exports.handler = async (event) => {
            }
          ],
          Unit: 'Count',
-         Value: requestWasSuccessful
+         Value: requestWasSuccessful === 'yes' ? 1 : 0
        }
      ],
      Namespace: 'Udacity/Serveless'
