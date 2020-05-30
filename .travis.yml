@@ -15,13 +15,13 @@ before_script:
 
 script:
   - docker --version # print the version for logging
-  - docker build -t frontend ./project4/udacity-c2-frontend
+  - docker build -t frontend ./monolithic_to_microservice/udacity-c2-frontend
   - docker tag frontend mamadly/udacity-cloud-dev-frontend:latest
-  - docker build -t user ./project4/udacity-c2-user
+  - docker build -t user ./monolithic_to_microservice/udacity-c2-user
   - docker tag user mamadly/udacity-cloud-dev-user:latest
-  - docker build -t feed ./project4/udacity-c2-feed
+  - docker build -t feed ./monolithic_to_microservice/udacity-c2-feed
   - docker tag feed mamadly/udacity-cloud-dev-feed:latest
-  - docker build -t reverse-proxy ./project4/reverse-proxy
+  - docker build -t reverse-proxy ./monolithic_to_microservice/reverse-proxy
   - docker tag reverse-proxy mamadly/udacity-cloud-dev-reverse-proxy:latest
 
 after_success:
