@@ -1,22 +1,6 @@
+import AWS from 'aws-sdk'
 
-
-const mockData = [ 
-    {
-        "id": "1",
-        "name": "Dogs",
-        "description": "Only Dogs images here!"
-    },
-    {
-        "id": "2",
-        "name": "Nature",
-        "description": "What can be better object for photograph"
-    },
-    {
-        "id": "3",
-        "name": "Cities",
-        "description": "Creative display of urban settings"
-    }
-]
+const docClient = new AWS.DynamoDB.DocumentClient()
 
 async (event) => {
     return {
