@@ -1,0 +1,19 @@
+{
+    "name": "create-groups",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {
+        "package": "zip -r create-group-dynamoDB index.js package-lock.json package.json node_modules",
+        "test": "echo no test implemented yet"
+    },
+    "author": "Mohamadou Ly",
+    "license": "ISC",
+    "dependencies": {
+        "@types/node": "^14.0.11",
+        "aws-sdk": "^2.691.0",
+        "typescript": "^3.9.5",
+        "uuid": "^8.1.0",
+        "uuidv4": "^6.1.0"
+    }
+}
