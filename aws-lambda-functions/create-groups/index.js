@@ -15,10 +15,12 @@ exports.handler = async (event) => {
         ...parseBody
     }
 
-    await docClient.put({
+    const dynamoResponse = await docClient.put({
         TableName: groupTable,
-        item: newItem
+        Item: newItem
     }).promise()
+
+    console.log(dynamoResponse)
     
     return {
         statusCode: 201,
