@@ -26,26 +26,7 @@
                 "Sid": "VisualEditor0",
                 "Effect": "Allow",
                 "Action": [
-                    "dynamodb:BatchWriteItem",
-                    "dynamodb:UpdateTimeToLive",
-                    "dynamodb:PutItem",
-                    "dynamodb:DeleteItem",
-                    "dynamodb:RestoreTableToPointInTime",
-                    "dynamodb:CreateTableReplica",
-                    "dynamodb:UpdateContributorInsights",
-                    "dynamodb:UpdateGlobalTable",
-                    "dynamodb:UpdateItem",
-                    "dynamodb:CreateBackup",
-                    "dynamodb:DeleteTableReplica",
-                    "dynamodb:DeleteTable",
-                    "dynamodb:UpdateTableReplicaAutoScaling",
-                    "dynamodb:UpdateContinuousBackups",
-                    "dynamodb:CreateTable",
-                    "dynamodb:UpdateGlobalTableSettings",
-                    "dynamodb:RestoreTableFromBackup",
-                    "dynamodb:CreateGlobalTable",
-                    "dynamodb:DeleteBackup",
-                    "dynamodb:UpdateTable"
+                    "dynamodb:PutItem"
                 ],
                 "Resource": "arn:aws:dynamodb:*:164484506537:table/groups"
             },
