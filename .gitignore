@@ -36,3 +36,13 @@ UserInterfaceState.xcuserstate
 node_modules
 venv/
 .vscode
+
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Webpack directories
+.webpack
