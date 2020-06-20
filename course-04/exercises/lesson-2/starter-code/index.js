@@ -12,7 +12,23 @@ exports.handler = async (event) => {
   // TODO: Read and parse "limit" and "nextKey" parameters from query parameters
   // let nextKey // Next key to continue scan operation if necessary
   // let limit // Maximum number of elements to return
-
+  let limit
+  let nextKey
+  try {
+    limit = getLimitParm(event)
+    nextKey = getNextKey(event);
+  } catch (e) {
+    console.error(e)
+    return {
+      statusCode: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: ({
+        error: 'Invalid url Parameter Provided!'
+      })
+    }
+  }
   // HINT: You might find the following method useful to get an incoming parameter value
   // getQueryParameter(event, 'param')
 
@@ -22,8 +38,8 @@ exports.handler = async (event) => {
   const scanParams = {
     TableName: groupsTable,
     // TODO: Set correct pagination parameters
-    // Limit: ???,
-    // ExclusiveStartKey: ???
+     Limit: limit,
+    ExclusiveStartKey: nextKey
   }
   console.log('Scan params: ', scanParams)
 
@@ -77,4 +93,40 @@ function encodeNextKey(lastEvaluatedKey) {
   }
 
   return encodeURIComponent(JSON.stringify(lastEvaluatedKey))
+}
+
+/**
+ * Retrieve the limit parameter from url
+ * 
+ * @param {Object} event HTTP event passed to a Lambda function
+ * 
+ * @returns {Integer} value of the limit parameter or throw exception if limit is negatif
+ */
+function getLimitParm( event ) {
+  const limitParm = getQueryParameter(event, 'limit')
+  let limit = 10
+  // if we don't specify a limit use the default limit
+  if ( limitParm ) {
+    limit = parseInt(limitParm, 10)
+    if ( limit < 0 ) 
+      throw new Error('Limit must be a positive integer')
+  } 
+  return limit
+}
+
+/**
+ * Retrieve the next parameter from url 
+ * 
+ * @param {Object} event HTTP event passed to a Lambda function
+ * 
+ * @returns {Integer} value of nextKey query parameter or "undefine" if a param
+ */
+function getNextKey( event ) {
+  let nextKeyParm = getQueryParameter(event, 'nextKey')
+
+  if ( nextKeyParm ) {
+    nextKeyParm = JSON.parse(decodeURIComponent(nextKeyParm))
+  }
+
+  return nextKeyParm
 }
