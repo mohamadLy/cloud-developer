@@ -92,7 +92,9 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
-
+    stages:
+    - dev
+ 
   documentation:
     api:
       info:
