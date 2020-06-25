@@ -1,0 +1,13 @@
+Resources:
+  AnimalsTables:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeDefinitions:
+          - AttributeName: animalId
+          - AtrributeType: S
+        KeySchema:
+          - AttributeName: animalId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableNames.animals}

@@ -4,14 +4,56 @@ service:
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
+  - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-s3-local
+  
+custom:
+  serverless-offline:
+    port: 3003
+    stageVariables:
+      TODOS_TABLE: todos_table
+      IMAGES_S3_BUCKET: images_s3_bucket
 
+  tableNames:
+    todos_table: 'todos_table'
+  dynamodb:
+    start:
+      migrate: true
+    stages:
+      - dev
+  s3:
+    host: localhost
+    directory: /tmp
+  resources:
+    Resources:
+      NewResource:
+        Type: AWS::S3::Bucket
+        Properties:
+          BucketName: images_s3_bucket
+  
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
 
+  environment: 
+    #TODOS_TABLE: TODO-${self:provider.stage}
+    #IMAGES_S3_BUCKET: serverless-todo-images-${self:provider.stage}
+    TODOS_TABLE: TODO-todos-dev
+    IMAGES_S3_BUCKET: images-s3-bucket
+    SIGNED_URL_EXPIRATION: 300
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+   
 functions:
 
   Auth:
@@ -24,15 +66,16 @@ functions:
       - http:
           method: get
           path: todos
+          cors: true
 
   # TODO: Configure this function
-  GetTodos:
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
     events:
       - http:
           method: post
           path: todos
+          cors: true
 
   # TODO: Configure this function
   UpdateTodo:
@@ -41,6 +84,7 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
+          cors: true
 
   # TODO: Configure this function
   DeleteTodo:
